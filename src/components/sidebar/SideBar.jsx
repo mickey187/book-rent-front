@@ -2,6 +2,7 @@ import { Divider } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SidebarWrapper from "./SideBarWrapper";
 import SidebarMenu from "./SideBarMenu";
+import BookIcon from '@mui/icons-material/Book';
 
 const menuItems = [
   {
@@ -10,9 +11,9 @@ const menuItems = [
     icon: DashboardIcon,
   },
   {
-    label: "Another Menu Item",
+    label: "Books",
     link: "/another-link",
-    icon: DashboardIcon, // Replace with the actual icon
+    icon: BookIcon, // Replace with the actual icon
   },
   // Add more menu items here
 ];
