@@ -4,13 +4,15 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import SidebarWrapper from "../../components/sidebar/SideBarWrapper";
-import OwnerDashboard from "./OwnerDashboard";
-import Books from "../Admin/Books";
+import SidebarWrapper from "./../../components/sidebar/SideBarWrapper";
+// import OwnerDashboard from "./OwnerDashboard";
+// import Books from "../Admin/Books";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BookIcon from "@mui/icons-material/Book";
-import SidebarMenu from "../../components/sidebar/SideBarMenu";
-import BookUpload from "./BookUpload";
+// import BookUpload from './../Owners/BookUpload';
+import SidebarMenu from "./../../components/sidebar/SideBarMenu";
+import RenterDashboard from "./RenterDashboard";
+import BookList from "./BookList";
 
 const menuItems = [
   {
@@ -19,8 +21,8 @@ const menuItems = [
     icon: DashboardIcon,
   },
   {
-    label: "Book Upload",
-    link: "book-upload",
+    label: "Books",
+    link: "book-list",
     icon: BookIcon,
   },
   // {
@@ -31,11 +33,11 @@ const menuItems = [
   // Add more menu items here
 ];
 
-function OwnersMenu() {
+function RentersMenu() {
   return (
     <>
       {/* <Router> */}
-      <div className="flex flex-row bg-slate-100 h-lvh max-w-full ">
+      <div className="flex flex-row bg-slate-100 h-lvh w-full  overflow-x-hidden">
         <div>
           <SidebarWrapper>
             <SidebarMenu menuItems={menuItems} />
@@ -43,12 +45,12 @@ function OwnersMenu() {
         </div>
 
         {/* <div className="ml-[20%] "> */}
-        <div className="ml-[20%]  flex-grow">
+        <div className="ml-[20%]  w-[80%]  mt-3 ">
           {/* content goes here */}
-          <div className=" mt-5">
+          <div className="ml-3">
             <Routes>
-              <Route path="dashboard" element={<OwnerDashboard />} />
-              <Route path="book-upload" element={<BookUpload />} />
+              <Route path="dashboard" element={<RenterDashboard />} />
+              <Route path="book-list" element={<BookList />} />
             </Routes>
           </div>
         </div>
@@ -59,4 +61,4 @@ function OwnersMenu() {
   );
 }
 
-export default OwnersMenu;
+export default RentersMenu;

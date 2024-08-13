@@ -17,17 +17,17 @@ import PersonIcon from "@mui/icons-material/Person";
 const menuItems = [
   {
     label: "Dashboard",
-    link: "/dashboard",
+    link: "dashboard",
     icon: DashboardIcon,
   },
   {
     label: "Books",
-    link: "/books",
+    link: "books",
     icon: BookIcon,
   },
   {
     label: "Owners",
-    link: "/books",
+    link: "owners",
     icon: PersonIcon,
   },
   // Add more menu items here
@@ -35,27 +35,27 @@ const menuItems = [
 
 function AdminMenu() {
   return (
-    <Router>
-      <div className="flex flex-row bg-slate-100 h-lvh w-screen overflow-x-hidden">
+    // <Router>
+      <div className="flex flex-row bg-slate-100 h-lvh max-w-full overflow-x-hidden">
         <div>
           <SidebarWrapper>
             <SidebarMenu menuItems={menuItems} />
           </SidebarWrapper>
         </div>
 
-        <div className="ml-[20%] ">
-          <div className="mx-5 mt-5 w-full">
+        <div className="ml-[20%] flex-grow">
+          <div className="mx-3 mt-5 ">
             {/* content goes here */}
 
             <Routes>
-              <Route path="/dashboard" element={<AdminDashboard />} />
-              <Route path="/books" element={<Books />} />
-              <Route path="/owners" element={<Owners/>} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="books" element={<Books />} />
+              <Route path="owners" element={<Owners/>} />
             </Routes>
           </div>
         </div>
       </div>
-    </Router>
+    // </Router>
   );
 }
 

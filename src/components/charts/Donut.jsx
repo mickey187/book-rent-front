@@ -34,11 +34,11 @@ const Donut = () => {
 
   return (
     <>
-    <div className="mt-5 flex flex-row justify-between mb-6">
+    <div className="mt-5 flex flex-row justify-between mb-6 w-full">
       <h1 className="text-black font-semibold">Available Books</h1>
       <div className=" bg-slate-300 text-black p-1">This Month</div>
     </div>
-      <Doughnut data={data} className="w-52 h-52"/>
+      <Doughnut data={data} className="lg:w-52 lg:h-52 md:w-26 md:h-26 w-13 h-13"/>
     </>
   );
 };

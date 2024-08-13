@@ -3,7 +3,7 @@ import Doughnut from "../charts/Donut";
 
 function AdminEarnings() {
   return (
-    <>
+   
       <div className="w-full mt-3 mx-auto py-3  bg-white rounded-lg shadow-md flex flex-col">
         <div className="flex flex-row justify-between p-4">
           <h3 className="ml-3 mt-2">Income</h3>
@@ -23,7 +23,7 @@ function AdminEarnings() {
             
       </div>
       
-    </>
+    
   );
 }
 
