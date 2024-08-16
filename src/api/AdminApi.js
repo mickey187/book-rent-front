@@ -1,10 +1,12 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiToken = localStorage.getItem("bookApiKey");
+const storedData = localStorage.getItem("user");
+const userData = JSON.parse(storedData);
 
 export const fetchAllBooks = async () => {
   try {
-    const books = await axios.get(`${baseUrl}/owner/book/fetch/${4}`, {
+    const books = await axios.get(`${baseUrl}/owner/book/fetch/${userData.id}`, {
       headers: {
         Accept: "application/json",
         Authorization: `${apiToken}`,

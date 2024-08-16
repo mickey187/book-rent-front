@@ -37,7 +37,8 @@ function Signin() {
       if (response.success) {
         // navigate("")
         localStorage.setItem("bookApiKey", response.data.token);
-        // console.log(response);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log(response);
         if (response.data.user.role.name == 'bookOwner') {
           navigate('/owner/dashboard');
         }

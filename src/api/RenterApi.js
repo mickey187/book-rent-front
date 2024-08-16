@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const apiToken = localStorage.getItem("bookApiKey");
 
 export const rentBookApi = async(rentData)=>{
