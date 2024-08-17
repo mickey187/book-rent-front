@@ -19,6 +19,12 @@ const columns = [
     width: 200,
     valueGetter: (params) => `${params.firstName} ${params.lastName}`,
   },
+  {
+    field: "renter",
+    headerName: "Renter",
+    width: 200,
+    valueGetter: (params) => `${params.firstName} ${params.lastName}`,
+  },
   { field: "bookStatus", headerName: "Status", width: 150,
     
    },

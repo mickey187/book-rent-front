@@ -1,12 +1,19 @@
+
 import { Divider } from "@mui/material";
 import bookSvg from "../../assets/icons/book-logo-3.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 
 const SidebarWrapper = ({ children }) => {
+const navigate = useNavigate();
   const removeUserData = ()=>{
-    localStorage.removeItem("user");
-    localStorage.removeItem("bookApiKey");
+    // localStorage.removeItem("user");
+    // localStorage.removeItem("bookApiKey");
+    localStorage.clear();
     console.log("user data removed");
+    // window.location.reload();
+    window.location.href = '/signin'
+    // navigate("/signin");
+    
     
   }
   return (

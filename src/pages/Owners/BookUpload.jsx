@@ -6,12 +6,15 @@ import Alert from "@mui/material/Alert";
 
 import { createBookApi } from "./../../api/OwnerApi";
 
+
+
 // Define the validation schema
 const schema = z.object({
   bookName: z.string().min(1, "Book name must be at least one character"),
   bookQuantity: z.number().min(1, "Quantity must be at least one"),
   rentPrice: z.number().min(1, "Rent price must be at least 1"),
 });
+
 
 function BookUpload() {
   const [bookCover, setBookCover] = useState(null);
@@ -62,6 +65,7 @@ function BookUpload() {
       data.append("bookName", parsedData.bookName);
       data.append("bookQuantity", parsedData.bookQuantity.toString());
       data.append("rentPrice", parsedData.rentPrice.toString());
+      
 
       if (bookCover) {
         data.append("bookCover", bookCover);

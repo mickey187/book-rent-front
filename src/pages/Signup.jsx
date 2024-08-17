@@ -62,7 +62,8 @@ function Signup() {
       console.log("Form submitted:", parsedData);
       const response = await signupApi(parsedData);
       if (response.success) {
-        localStorage("bookApiKey", response.data.token);
+        localStorage.setItem("bookApiKey", response.token);
+        localStorage.setItem("user", JSON.stringify(response.data));
         // navigate('/owner/dashboard');
         if (formData.role == 'bookOwner') {
           navigate('/owner/dashboard');
@@ -71,10 +72,14 @@ function Signup() {
           navigate('/renter/dashboard');
         }
         console.log(response);
+      }else{
+        setErrors({});
       }
-      setErrors({});
+      
     } catch (error) {
-      setErrors(error.formErrors.fieldErrors);
+      // setErrors(error.formErrors.fieldErrors);
+      console.error("error submitting signup form ", error);
+      
     }
   };
 

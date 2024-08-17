@@ -1,37 +1,45 @@
 import { useEffect, useState } from "react";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import Switch from "@mui/material/Switch";
-import Navbar from './../../components/navbar/Navbar';
-import DataTable from './../../components/table/DataTable';
-import { fetchAllBooks } from './../../api/AdminApi';
-import EditIcon  from '@mui/icons-material/Edit';
-import  Handshake  from "@mui/icons-material/Handshake";
-import { rentBookApi } from "../../api/RenterApi";
+import Navbar from "./../../components/navbar/Navbar";
+import DataTable from "./../../components/table/DataTable";
+import { fetchAllBooks } from "./../../api/AdminApi";
+import EditIcon from "@mui/icons-material/Edit";
+import Handshake from "@mui/icons-material/Handshake";
+import { fetchBooksForRent, rentBookApi } from "../../api/RenterApi";
+import Alert from "@mui/material/Alert";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-
 function BookList() {
-  const handleClick = async(book)=>{
+  const [showAlert, setShowAlert] = useState({
+    status: false,
+    type: "",
+    message: "",
+  });
+
+  const handleClick = async (book) => {
     try {
-      console.log("book data: ",book);
       
+
       const bookData = {
         bookId: book.id,
         ownerId: book.owner.id,
-
-      }
+      };
       const response = await rentBookApi(bookData);
       if (response.success) {
-        alert("rented");
+        setShowAlert({
+          type: "success",
+          status: true,
+          message: "congrats you have rented the book",
+        });
       }
     } catch (error) {
       console.error(error);
-      
     }
-  }
+  };
   const columns = [
-    { field: "id", headerName: "No", flex:1 },
+    { field: "id", headerName: "No", flex: 1 },
     // { field: "author", headerName: "Author", width: 150 },
     {
       field: "owner",
@@ -39,9 +47,10 @@ function BookList() {
       width: 200,
       valueGetter: (params) => `${params.firstName} ${params.lastName}`,
     },
-    { field: "name", headerName: "Book Name", flex:1 },
-  
-    { field: "status", headerName: "Status", type: "number", flex:1 },
+    { field: "name", headerName: "Book Name", flex: 1 },
+    { field: "quantity", headerName: "Quantity", flex: 1 },
+
+    { field: "status", headerName: "Status", type: "number", flex: 1 },
     {
       field: "actions",
       headerName: "Actions",
@@ -54,20 +63,18 @@ function BookList() {
             onClick={() => handleClick(params.row)}
             label="Rent"
           />
-          
         </>
       ),
     },
-  
   ];
-  
+
   const [books, setBooks] = useState([]);
   useEffect(() => {
     const fetchBooks = async () => {
       console.log("test");
 
       try {
-        const allbooks = await fetchAllBooks();
+        const allbooks = await fetchBooksForRent();
         console.log("ownerBooks", allbooks);
 
         setBooks(allbooks);
@@ -79,9 +86,16 @@ function BookList() {
     // return () => {};
   }, []);
 
- 
   return (
     <>
+      {showAlert.status && (
+        <Alert
+          severity={showAlert.type}
+          onClose={() => setShowAlert({ status: false, type: "" })}
+        >
+          {showAlert.message}
+        </Alert>
+      )}
       <div className="">
         <div className="mx-3">
           <Navbar role={"Admin"} title={"Dashboard"} />
