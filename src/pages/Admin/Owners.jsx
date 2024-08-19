@@ -1,58 +1,41 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import DataTable from "../../components/table/DataTable";
+import { fetchBookOwners } from "../../api/AdminApi";
 
 function Owners(){
+  const [owners, setOwners] = useState([]);
+  useEffect(() => {
+    const fetchOwners = async () => {
+      console.log("test");
+
+      try {
+        const allOwners = await fetchBookOwners();
+        console.log("ownerBooks", allOwners);
+
+        setOwners(allOwners);
+      } catch (error) {
+        console.error("error fetching books", error);
+      }
+    };
+    fetchOwners();
+    // return () => {};
+  }, []);
     const columns = [
         { field: "id", headerName: "No", width: 50 },
-        { field: "author", headerName: "Author", width: 150 },
-        { field: "category", headerName: "Owner", width: 200 },
-        { field: "bookName", headerName: "Book Name", width: 150 },
-        { field: "status", headerName: "Status", type: "number", width: 150 },
+        { field: "firstName", headerName: "First Name", flex: 1 },
+        { field: "lastName", headerName: "Last Name", flex: 1 },
+        { field: "email", headerName: "Email", flex: 1 },
+        // { field: "status", headerName: "Status", type: "number", width: 150 },
       ];
-      const rows = [
-        {
-          id: 1,
-          author: "Colleen Hoover",
-          category: "Jon Jones",
-          bookName: "rented",
-          status: 21.99,
-        },
-        {
-          id: 1,
-          author: "Colleen Hoover",
-          category: "Fiction",
-          bookName: "verity",
-          status: 21.99,
-        },
-        {
-          id: 1,
-          author: "Colleen Hoover",
-          category: "Fiction",
-          bookName: "verity",
-          status: 21.99,
-        },
-        {
-          id: 1,
-          author: "Colleen Hoover",
-          category: "Fiction",
-          bookName: "verity",
-          status: 21.99,
-        },
-        {
-          id: 1,
-          author: "Colleen Hoover",
-          category: "Fiction",
-          bookName: "verity",
-          status: 21.99,
-        },
-      ];
+ 
       
 return(<>
 <>
       <div className=" ">
         <Navbar role={"Admin"} title={"Dashboard"} />
         <div className="mt-5 mx-5 bg-white">
-          <DataTable columns={columns} rows={rows} />
+          <DataTable columns={columns} rows={owners} />
         </div>
       </div>
     </>
