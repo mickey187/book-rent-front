@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import SidebarWrapper from "../../components/sidebar/SideBarWrapper";
 import SidebarMenu from "../../components/sidebar/SideBarMenu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -8,10 +9,11 @@ import MainStatBar from "../../components/stats/MainStatBar";
 import Donut from "../../components/charts/Donut";
 import DataTable from "../../components/table/DataTable";
 import LineChart from "../../components/charts/LineChart";
+import { fetchBooksForRent } from './../../api/RenterApi';
 
 
 const columns = [
-  { field: "bookNum", headerName: "Book No", width: 150 },
+  { field: "id", headerName: "Book No", width: 150 },
   { field: "owner", headerName: "Owner", width: 200 },
   { field: "status", headerName: "Status", width: 150 },
   { field: "price", headerName: "Price", type: "number", width: 150 },
@@ -47,22 +49,44 @@ const rows = [
   },
 ];
 function AdminDashboard() {
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    const fetchBooks = async () => {
+      console.log("test");
+
+      try {
+        const ownerBooks = await fetchBooksForRent();
+        console.log("ownerBooks", ownerBooks);
+
+        setBooks(ownerBooks);
+      } catch (error) {
+        console.error("error fetching books", error);
+      }
+    };
+    fetchBooks();
+    // return () => {};
+  }, []);
   return (
     <>
       <div>
-      <Navbar role={"Admin"} title={"Dashboard"} />
-      <div className=" body  flex flex-row mt-5 ml-5">
-        <MainStatBar>
-          <AdminEarnings />
-          <Donut />
-        </MainStatBar>
-        <div className="flex flex-col">
-          <div className="ml-3 bg-white mx-5">
-            <DataTable columns={columns} rows={rows} />
-          </div>
-          <div className="ml-3 bg-white">{/* <LineChart/> */}</div>
+        <div className="mx-5">
+          <Navbar role={"Admin"} title={"Dashboard"} />
         </div>
-      </div>
+
+        <div className=" flex flex-col lg:flex-row xl:flex-row 2xl:flex-row  mt-5 lg:ml-3 sm:mx-1">
+        <div className="w-full lg:w-1/4 md:1/4 xl:w-1/4 ">
+            <MainStatBar>
+              <AdminEarnings />
+              <Donut />
+            </MainStatBar>
+          </div>
+          <div className="flex flex-col">
+            <div className="ml-3 bg-white mx-5">
+              <DataTable columns={columns} rows={rows} />
+            </div>
+            <div className="ml-3 bg-white">{/* <LineChart/> */}</div>
+          </div>
+        </div>
       </div>
     </>
   );
