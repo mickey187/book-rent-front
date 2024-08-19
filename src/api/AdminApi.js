@@ -59,3 +59,18 @@ export const unApproveBook = async (bookId) => {
     console.error(`error fetching books: ${error.message}`);
   }
 };
+
+export const fetchBookOwners = async () => {
+  const authUserData = fetchAuthUserData();
+  try {
+    const books = await axios.get(`${baseUrl}/admin/books/owners`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `${authUserData.apiToken}`,
+      },
+    });
+    return books.data.data;
+  } catch (error) {
+    console.error(`error fetching books: ${error.message}`);
+  }
+};
